@@ -1,0 +1,2 @@
+[console_scripts]
+ruff-format-docs = ruff_format_docs:main
