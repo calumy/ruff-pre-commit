@@ -20,6 +20,38 @@ lint = [
     "pre-commit==4.0.1",
 ]
 
+[tool.pytest.ini_options]
+addopts = [
+  "--no-cov-on-fail", # Do not report coverage if tests fail.
+  "--strict-config", # Any warnings encountered while parsing the `pytest` section of the configuration file raise errors.
+  "--strict-markers", # Require markers to be registered in the `markers` section below
+]
+filterwarnings = [
+  "error", # Convert warnings to errors
+]
+python_files = "test_*.py"
+testpaths = ["tests"]
+xfail_strict = true
+
+[tool.coverage.report]
+fail_under = 100
+omit = ["mirror.py"]
+show_missing = true
+skip_covered = true
+
+[tool.coverage.run]
+branch = true
+parallel = true
+source = [
+  "ruffen_docs",
+  "tests",
+]
+
+[tool.coverage.paths]
+source = [
+  "src",
+]
+
 [tool.mypy]
 mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
 strict = true
