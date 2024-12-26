@@ -43,6 +43,8 @@ def main() -> None:
         else:
             print(f"No change v{version}")
 
+    return 0
+
 
 def get_all_versions() -> list[Version]:
     """Fetch all versions of ruff from pypi."""
@@ -92,4 +94,4 @@ def process_version(version: Version) -> Sequence[str]:
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
