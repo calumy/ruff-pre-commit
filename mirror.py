@@ -37,22 +37,11 @@ def main() -> None:
     for version in target_versions:
         paths = process_version(version)
         if subprocess.check_output(["git", "status", "-s"]).strip():
-            try:
-                run_cmd("git", "add", *paths)
-                run_cmd("git", "commit", "-m", f"Mirror: {version}")
-                run_cmd("git", "tag", f"v{version}")
-            except subprocess.CalledProcessError:
-                print("An error occurred when updating the version.")
-                return 1
+            subprocess.run(["git", "add", *paths], check=True)
+            subprocess.run(["git", "commit", "-m", f"Mirror: {version}"], check=True)
+            subprocess.run(["git", "tag", f"v{version}"], check=True)
         else:
             print(f"No change v{version}")
-
-    return 0
-
-
-def run_cmd(*cmd: str) -> None:
-    """Run a command and check the results."""
-    subprocess.run(cmd, check=True)
 
 
 def get_all_versions() -> list[Version]:
@@ -103,4 +92,4 @@ def process_version(version: Version) -> Sequence[str]:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
